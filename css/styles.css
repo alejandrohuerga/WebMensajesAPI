@@ -1,0 +1,90 @@
+/* Estilos generales */
+body {
+    background-color: #121212; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto gris claro para legibilidad */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Estilo del contenedor del chat */
+#chat {
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    max-width: 800px; /* Limitar el ancho para que no sea demasiado ancho */
+    background-color: #1f1f1f; /* Fondo oscuro para el contenedor */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Sombra sutil */
+    overflow-y: auto;
+    border: 1px solid #333; /* Borde sutil */
+    position: relative;
+}
+
+/* Estilo de los mensajes */
+.mensaje {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo suave y oscuro */
+    border-radius: 10px;
+    margin: 15px 0;
+    padding: 12px;
+    font-size: 15px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.9;
+}
+
+/* Efecto hover en los mensajes */
+.mensaje:hover {
+    transform: translateX(5px) scale(1.05);
+    opacity: 1;
+}
+
+/* Estilo para los nombres de los teléfonos */
+.mensaje strong {
+    color: #bbb; /* Gris claro para los nombres */
+    font-weight: bold;
+}
+
+/* Estilo de las fechas */
+.fecha {
+    font-size: 12px;
+    color: #888; /* Gris más oscuro para las fechas */
+    margin-top: 5px;
+    display: block;
+}
+
+/* Desplazamiento suave */
+#chat::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+#chat::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilo de carga */
+#chat::after {
+    content: 'Cargando mensajes...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ccc;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.7;
+    display: none;
+}
+
+#chat.loading::after {
+    display: block;
+}
