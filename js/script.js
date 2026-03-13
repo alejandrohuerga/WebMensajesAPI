@@ -1,33 +1,33 @@
 async function cargarChat() {
-    // URL de tu endpoint de n8n que devuelve el JSON
     const url = 'https://qinamical.app.n8n.cloud/webhook/mensajes'; 
+    const contenedor = document.getElementById('chat');
     
     try {
         const response = await fetch(url);
         const data = await response.json();
 
-        // Invertimos para ver el orden cronológico antiguo -> reciente
-        const mensajesOrdenados = data;
-
-        const contenedor = document.getElementById('chat');
-        // Renderizamos los mensajes
-        contenedor.innerHTML = mensajesOrdenados.map(item => `
-            <div class="mensaje">
-                <strong>${item.Telefono}:</strong> ${item.Mensaje}
-                <br><span class="fecha">${item.Fecha}</span>
+        // Limpiamos y renderizamos con el nuevo estilo de burbujas
+        contenedor.innerHTML = data.map(item => `
+            <div class="bubble received">
+                <span class="phone-label">${item.Telefono}</span>
+                <div class="text-dark">${item.Mensaje}</div>
+                <div class="bubble-meta">
+                    ${new Date(item.Fecha).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} 
+                    <i class="bi bi-check2-all text-primary ms-1"></i>
+                </div>
             </div>
         `).join('');
+
+        // Auto-scroll al último mensaje
+        contenedor.scrollTop = contenedor.scrollHeight;
         
     } catch (error) {
         console.error('Error al actualizar chat:', error);
+        contenedor.innerHTML = `<div class="alert alert-danger m-3">Error de conexión con n8n</div>`;
     }
 }
 
-// Llama a la función una vez al cargar
+// Carga inicial
 cargarChat();
-
-// Configura el temporizador para llamar a la función cada 10000ms (10 segundos)
-setInterval(cargarChat, 10000);
-
-const contenedor = document.getElementById('chat');
-contenedor.scrollTop = contenedor.scrollHeight;
+// Intervalo de 10 segundos
+//setInterval(cargarChat, 10000);
